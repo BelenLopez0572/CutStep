@@ -1,0 +1,152 @@
+<?php
+// Inicia la sesión
+session_start();
+
+// 1. VERIFICACIÓN CRÍTICA DE SESIÓN
+// Si la sesión no está activa (ej. no existe una clave de usuario), redirige al inicio de sesión.
+// ¡Esta es la principal medida de seguridad contra el botón "Atrás"!
+if (!isset($_SESSION['user_id'])) { 
+    header('Location: index.php');
+    exit; 
+}
+
+// 2. Control de Caché (Ayuda a evitar que el navegador guarde la página)
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+?>
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Menú Principal - CUT</title>
+    <link rel="stylesheet" href="css/menu.css">
+</head>
+<body>
+    <div class="main-container">
+
+        <header class="main-header">
+            <div class="header-center-content">
+                <h1 class="title-menu">Menú Principal</h1>
+            </div>
+            <button id="logout-btn" class="btn-logout" title="Cerrar Sesión">
+                Cerrar Sesión
+            </button>
+        </header>
+
+        <div id="info-bar">
+            <div class="info-card">
+                <span class="info-label">Próximo Reporte:</span>
+                <div id="reporte-message" class="info-value"></div> 
+            </div>
+            <div class="info-card">
+                <span class="info-label">Horas Pendientes:</span>
+                <div id="hours-message" class="info-value"></div>
+            </div>
+        </div>
+
+        <p class="intro-text">
+            Aquí encontrarás toda la información que necesitas para lograr completar tu servicio social, 
+            prácticas profesionales y tu proceso de titulación.
+        </p>
+
+        <div class="buttons">
+            <a href="ss.html" class="btn-card" data-page="ss.html">
+                <img src="imagenes/servicio.png" alt="Servicio Social">
+                <span>Servicio</span>
+            </a>
+
+            <a href="practicas.html" class="btn-card" data-page="practicas.html">
+                <img src="imagenes/practicas.png" alt="Prácticas profesionales">
+                <span>Prácticas</span>
+            </a>
+
+            <a href="ajustes.html" class="btn-card" data-page="ajustes.html">
+                <img src="imagenes/titulacion.png" alt="Ajustes">
+                <span>Ajustes</span>
+            </a>
+            
+            <a href="recursos.html" class="btn-card" data-page="recursos.html">
+                <img src="imagenes/recursos.png" alt="Recursos">
+                <span>Recursos</span>
+            </a>
+        </div>
+    </div>
+
+<script>
+    const TOTAL_HOURS = 480;
+
+    // --- MANEJO DE HISTORIAL (Medida auxiliar) ---
+    // Esto sobrescribe la entrada actual en el historial.
+    history.pushState(null, null, location.href);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, location.href);
+    });
+    
+    // --- FUNCIÓN DE CERRAR SESIÓN ---
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        // Redirige al script de logout.php
+        window.location.href = 'backend/logout.php'; 
+    });
+
+
+    // Función para obtener un parámetro de la URL
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+
+    // Función para navegar a otras páginas y pasar los parámetros
+    document.querySelectorAll('.btn-card').forEach(card => {
+        card.addEventListener('click', function(event) {
+            event.preventDefault();
+            const page = this.getAttribute('data-page');
+            const start = getUrlParameter('inicio');
+            const report = getUrlParameter('reporte');
+            const hours = getUrlParameter('horas');
+            
+            let url = `${page}?inicio=${start}&reporte=${report}`;
+            if (hours) {
+                url += `&horas=${hours}`;
+            }
+            window.location.href = url;
+        });
+    });
+
+
+    // --- MANEJO DE LA FECHA DE REPORTE ---
+    const reporteDateParam = getUrlParameter('reporte');
+    const reporteMessageElement = document.getElementById('reporte-message');
+
+    if (reporteDateParam) {
+        const dateParts = reporteDateParam.split('-');
+        const reportDate = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = reportDate.toLocaleDateString('es-ES', options);
+        reporteMessageElement.textContent = formattedDate;
+    } else {
+        reporteMessageElement.textContent = 'No definida'; 
+    }
+    
+    // --- MANEJO DEL CONTADOR DE HORAS ---
+    const hoursParam = getUrlParameter('horas');
+    const hoursMessageElement = document.getElementById('hours-message');
+    
+    if (hoursParam) {
+        const registeredHours = parseInt(hoursParam);
+        
+        if (!isNaN(registeredHours) && registeredHours >= 0 && registeredHours <= TOTAL_HOURS) {
+            const hoursRemaining = TOTAL_HOURS - registeredHours;
+            hoursMessageElement.textContent = `${hoursRemaining} de ${TOTAL_HOURS} hrs`;
+        } else {
+            hoursMessageElement.textContent = 'Inválidas';
+        }
+    } else {
+        hoursMessageElement.textContent = 'No registradas';
+    }
+</script>
+</body>
+</html>

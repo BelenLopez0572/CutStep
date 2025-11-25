@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio Social - Requisitos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. BASE Y FONDO (Consistente con Menu y Login) --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0; 
+            display: flex;
+            justify-content: center;
+            /* Fondo Degradado Único: Verde claro a Azul/Blanco suave */
+            background: linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 100%); 
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px; /* Limitamos el ancho para mejor lectura */
+            background-color: white;
+            padding: 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); 
+            min-height: 100vh;
+        }
+
+        /* --- 2. ENCABEZADO SUPERIOR (Limpio y Profesional) --- */
+        .header {
+            background-color: #d4f8d4; /* Color de cabecera más claro y suave */
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 5px solid #6aa84f; /* Línea de color de énfasis */
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #004d40; /* Color oscuro (AAA) */
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .header-title {
+            padding: 10px 20px;
+            font-size: 1.5em;
+            font-weight: 600;
+            text-align: center;
+            color: #38761d;
+            margin-top: 10px;
+        }
+
+        .header-subtitle {
+            text-align: center;
+            padding: 0 40px 20px;
+            font-size: 1em;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- 3. ACORDEÓN --- */
+        .accordion-container {
+            padding: 20px 20px;
+        }
+        
+        .accordion-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden; /* Importante para el efecto de borde */
+            transition: box-shadow 0.3s ease;
+        }
+        .accordion-item:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 18px 25px;
+            background-color: #f7f7f7;
+            color: #333;
+            transition: background-color 0.3s;
+            user-select: none;
+            font-weight: 600;
+        }
+        
+        /* Estilo para el encabezado ACTIVO/ABIERTO */
+        .accordion-item.active .accordion-header,
+        .accordion-item.open .accordion-header {
+            background-color: #e0f2e0; /* Verde muy claro */
+            color: #1a5e1a; /* Verde oscuro para el texto */
+            font-weight: 700;
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #a5d6a7; /* Círculo verde */
+            border: 2px solid #38761d;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .accordion-item.active .step-number {
+            background-color: #38761d; /* Verde oscuro si es el paso actual */
+            border-color: #38761d; 
+            color: white;
+        }
+
+        .accordion-arrow {
+            margin-left: auto;
+            font-size: 1.5em;
+            transition: transform 0.3s;
+            line-height: 0.5;
+        }
+
+        .accordion-item.open .accordion-arrow {
+            transform: rotate(180deg);
+            color: #38761d;
+        }
+
+        .accordion-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+            background-color: white;
+            border-top: 1px solid #eee;
+        }
+        
+        .accordion-item.open .accordion-content {
+            padding: 20px 25px;
+        }
+
+        /* --- 4. CONTENIDO INTERNO DEL ACORDEÓN --- */
+        
+        /* Estilo general para el contenido de texto */
+        .content-text p {
+            margin: 0 0 15px 0;
+            color: #444;
+        }
+        
+        /* Estilos para el Paso 1: Registro (Simplificación) */
+        .step-1-content {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 25px;
+            padding-bottom: 10px;
+        }
+        
+        .step-1-links {
+            display: flex; 
+            justify-content: space-between; 
+            width: 100%;
+            max-width: 700px;
+            margin-top: 10px;
+        }
+
+        .link-area {
+            flex: 1;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .link-area p {
+            font-size: 1.0em;
+            margin-bottom: 5px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .link-register, .link-plaza {
+            display: inline-block;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #00796b; /* Un verde azulado atractivo */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .link-register:hover, .link-plaza:hover {
+            color: #004d40;
+            text-decoration: underline;
+        }
+
+        .link-area-right {
+            text-align: right; 
+            flex: 1;
+            padding: 10px;
+            position: relative;
+        }
+        
+        /* Eliminamos la flecha compleja y usamos solo texto claro */
+        .link-area-right .link-plaza {
+            font-weight: 700;
+            border: 2px solid #00796b;
+            padding: 8px 15px;
+            border-radius: 8px;
+            background-color: #e0f2f1;
+            text-decoration: none;
+        }
+
+        .content-image {
+            max-width: 90%; 
+            height: auto; 
+            display: block; 
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- BOTÓN DE ACCIÓN --- */
+        .next-button {
+            background-color: #38761d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.1s;
+            margin-top: 25px;
+            width: 100%;
+            display: block;
+        }
+
+        .next-button:hover {
+            background-color: #6aa84f;
+            transform: translateY(-1px);
+        }
+        
+        .next-button:disabled {
+            background-color: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .header-subtitle {
+                padding: 0 15px 15px;
+            }
+            .step-1-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .link-area, .link-area-right {
+                text-align: center;
+                padding: 5px;
+            }
+            .accordion-header {
+                padding: 15px;
+                font-size: 0.95em;
+            }
+            .accordion-item.open .accordion-content {
+                padding: 15px;
+            }
+            .link-area-right .link-plaza {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Servicio Social</h1>
+        </div>
+        
+        <div class="header-title">Proceso y Requisitos</div>
+        <p class="header-subtitle">
+            Para iniciar el servicio social en la carrera de Ingeniería en Ciencias Computacionales, debes haber cubierto al menos el **60% del total de créditos** del plan de estudios.
+        </p>
+
+        <div class="accordion-container">
+            <div class="accordion-item active" data-step="1">
+                <div class="accordion-header" id="header-1">
+                    <span class="step-number">1</span>
+                    <span>Registro: Localiza y selecciona tu plaza</span>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content" id="content-1">
+                    <div class="step-1-content">
+                        
+                        <div class="step-1-links">
+                            <div class="link-area">
+                                <p>
+                                    **1. Revisa las plazas disponibles en la página oficial de la universidad:**
+                                </p>
+                                <a href="URL_DEL_REGISTRO_OFICIAL" target="_blank" class="link-register">
+                                    Ir a la página de registro
+                                </a>
+                            </div>
+
+                            <div class="link-area-right">
+                                <p>
+                                    Si ya tienes tu plaza asignada y te registraste fuera de esta plataforma:
+                                </p>
+                                <a href="plaza.html" target="_blank" class="link-plaza">
+                                    Ya estoy registrado en una plaza
+                                </a>
+                            </div>
+                        </div>
+
+                        <img src="/imagenes/ss_registro.png" alt="Vista previa de la página de registro de Servicio Social" class="content-image">
+
+                    </div>
+                    <button class="next-button" id="next-1" onclick="completeStep(1)">Marcar como completado y continuar</button>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-step="2">
+                <div class="accordion-header" id="header-2">
+                    <span class="step-number">2</span>
+                    <span>Reportes: Documentación trimestral</span>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content" id="content-2">
+                    <p class="content-text">
+                        El estudiante deberá subir sus reportes trimestrales en formato **PDF**.
+                        Asegúrate de que cada reporte cumpla con el número de horas mínimas requeridas.
+                        <br><br>
+                        **Recuerda:** Mantener un registro detallado de tus actividades facilitará la aprobación de tu servicio.
+                    </p>
+                    <button class="next-button" id="next-2" disabled onclick="completeStep(2)">Marcar como completado y continuar</button>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-step="3">
+                <div class="accordion-header" id="header-3">
+                    <span class="step-number">3</span>
+                    <span>Liberación: Solicitud de certificación</span>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content" id="content-3">
+                    <p class="content-text">
+                        Una vez aprobados y contabilizados todos los reportes, el estudiante debe **solicitar la carta de liberación**. 
+                        <br><br>
+                        Este proceso puede tardar hasta 5 días hábiles. Asegúrate de que tus datos de contacto estén actualizados.
+                    </p>
+                    <button class="next-button" id="next-3" disabled onclick="completeStep(3)">Marcar como completado y continuar</button>
+                </div>
+            </div>
+
+            <div class="accordion-item" data-step="4">
+                <div class="accordion-header" id="header-4">
+                    <span class="step-number">4</span>
+                    <span>Finalizado: Éxito</span>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content" id="content-4">
+                    <p class="content-text">
+                        ¡Felicidades! Tu servicio social ha sido completado. Ya puedes gestionar tu carta de liberación final. 
+                        Guarda este documento de forma segura.
+                    </p>
+                    <button class="next-button" id="next-4" disabled>Finalizar Proceso</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        const MAX_STEPS = 4;
+        // La variable 'currentActiveStep' debe ser cargada desde el servidor en un entorno real.
+        // Aquí la simulamos para el ejemplo interactivo.
+        let currentActiveStep = 1; 
+
+        // Función para abrir o cerrar un elemento del acordeón
+        function toggleAccordion(item, content) {
+            if (item.classList.contains('open')) {
+                // Cerrar el actual
+                item.classList.remove('open');
+                content.style.maxHeight = null;
+            } else {
+                // Abrir el actual
+                item.classList.add('open');
+                
+                // Usar un pequeño timeout para asegurar que el DOM se renderice antes de calcular scrollHeight
+                setTimeout(() => {
+                    content.style.maxHeight = content.scrollHeight + 30 + "px"; // +30px por seguridad de padding
+                }, 10);
+            }
+        }
+        
+        // --- LÓGICA DE ABRIR/CERRAR ACORDEÓN ---
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const step = parseInt(item.getAttribute('data-step'));
+                const content = item.querySelector('.accordion-content');
+
+                // Solo permitir abrir el paso actual o los anteriores completados
+                if (step <= currentActiveStep) {
+                    
+                    if (!item.classList.contains('open')) {
+                        // Cerrar todos los demás
+                        accordionItems.forEach(i => {
+                            i.classList.remove('open');
+                            i.querySelector('.accordion-content').style.maxHeight = null;
+                        });
+                        
+                        // Abrir el actual
+                        toggleAccordion(item, content);
+
+                    } else {
+                        // Cerrar el actual si ya está abierto
+                        toggleAccordion(item, content);
+                    }
+                } else {
+                    alert('Debes completar el paso ' + (currentActiveStep) + ' para desbloquear este paso.');
+                }
+            });
+        });
+
+        // --- LÓGICA DEL BOTÓN "SIGUIENTE" ---
+        window.completeStep = function(stepNumber) {
+            const currentItem = document.querySelector(`.accordion-item[data-step="${stepNumber}"]`);
+            const nextStep = stepNumber + 1;
+            
+            // 1. Cerrar y Deshabilitar el paso actual
+            currentItem.classList.remove('open');
+            currentItem.querySelector('.accordion-content').style.maxHeight = null;
+            document.getElementById(`next-${stepNumber}`).disabled = true;
+
+            if (nextStep <= MAX_STEPS) {
+                
+                // 2. Actualizar la variable de paso activo
+                currentActiveStep = nextStep;
+                const nextItem = document.querySelector(`.accordion-item[data-step="${nextStep}"]`);
+                
+                // 3. Habilitar el botón "Siguiente" del siguiente paso
+                const nextButton = document.getElementById(`next-${nextStep}`);
+                if (nextButton) {
+                    nextButton.disabled = false;
+                }
+                
+                // 4. Marcar el siguiente paso como 'active' y abrirlo
+                accordionItems.forEach(item => item.classList.remove('active'));
+                nextItem.classList.add('active');
+                nextItem.classList.add('open');
+                
+                const nextContent = nextItem.querySelector('.accordion-content');
+                
+                // Abrir el contenido del siguiente paso
+                setTimeout(() => {
+                    nextContent.style.maxHeight = nextContent.scrollHeight + 30 + "px";
+                }, 10);
+                
+            } else {
+                // Caso: Finalizar Proceso (Paso 4 completado)
+                alert('¡Todos los pasos han sido completados!');
+            }
+        }
+        
+        // Inicializar: Asegurar que solo el paso 1 esté activo y abierto al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+             // Limpiar todas las clases 'active'/'open'
+             accordionItems.forEach(item => {
+                item.classList.remove('active', 'open');
+                item.querySelector('.accordion-content').style.maxHeight = null;
+            });
+
+             // Establecer el paso 1 como activo y abierto
+             const step1 = document.querySelector('.accordion-item[data-step="1"]');
+             step1.classList.add('active');
+             step1.classList.add('open');
+             const content1 = document.querySelector('#content-1');
+
+             // Habilitar solo el botón del paso 1
+             document.getElementById('next-1').disabled = false;
+             document.getElementById('next-2').disabled = true;
+             document.getElementById('next-3').disabled = true;
+             document.getElementById('next-4').disabled = true;
+
+             // Ajustar el alto del contenido del paso 1
+             setTimeout(() => {
+                 content1.style.maxHeight = content1.scrollHeight + 30 + "px";
+             }, 10);
+        });
+    </script>
+</body>
+</html>

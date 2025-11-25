@@ -1,0 +1,171 @@
+/* front/css/style.css */
+
+/* --- Base y Tipografía --- */
+* { 
+    box-sizing: border-box; 
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+body, html { 
+    height: 100%; 
+    margin: 0; 
+    /* Fondo Degradado Único: Verde/Azul suave */
+    background: linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 100%); 
+}
+
+/* --- Estructura de la Página (Centrado Total) --- */
+.page { 
+    display: flex; 
+    height: 100vh; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px; 
+}
+
+.right { 
+    width: auto; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+/* --- Tarjeta (Formulario) ALARGADO y ANCHO --- */
+.card {
+    width: 450px; 
+    min-height: 550px;
+    
+    background: rgba(255, 255, 255, 0.95); /* Fondo blanco semi-transparente */
+    border-radius: 40px; 
+    padding: 40px 45px; 
+    
+    position: relative; 
+    
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
+    text-align: center;
+}
+
+/* --- Posicionamiento del Logo SOBRE la Tarjeta --- */
+.logo-container {
+    position: absolute; 
+    top: -80px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    
+    background: #ffffff;
+    border-radius: 50%; 
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.logo { 
+    max-width: 150px; 
+    height: auto; 
+}
+
+/* --- Título y Contenido --- */
+.title { 
+    color: #004d40; 
+    font-weight: 700; 
+    letter-spacing: 2px; 
+    margin: 100px 0 35px 0; /* Margen para el logo superpuesto */
+    font-size: 26px;
+}
+
+/* --- Campos de Entrada --- */
+.field { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    margin: 25px 0; 
+    background: #ffffff; 
+    border: 1px solid #b2dfdb; 
+    border-radius: 12px;
+    padding: 12px 15px; 
+}
+
+.field input { 
+    flex: 1; 
+    border: none; 
+    background: transparent; 
+    padding: 8px 0; 
+    outline: none; 
+    color: #004d40; 
+    font-size: 17px; 
+}
+
+.icon, .eye { 
+    color: #00796b; 
+    font-size: 22px; 
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* --- Botón --- */
+.btn {
+    margin-top: 40px;
+    background: #66bb6a; 
+    border: none;
+    border-radius: 30px; 
+    padding: 16px 24px; 
+    color: #fff; 
+    font-weight: 700;
+    font-size: 20px;
+    width: 100%;
+    box-shadow: 0 8px 20px rgba(102, 187, 106, 0.4); 
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease;
+}
+.btn:hover {
+    background: #4caf50; 
+    transform: translateY(-2px);
+}
+
+/* --- Enlace --- */
+.link { 
+    display: block; 
+    margin-top: 25px; 
+    text-decoration: none; 
+    color: #004d40; 
+    font-weight: 600; 
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+/* --- Mensajes de Error/Éxito --- */
+.msg { 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    margin-bottom: 15px; 
+    font-weight: 500;
+}
+.msg.error { 
+    background: #ffcdd2; 
+    color: #c62828; 
+}
+.msg.success { 
+    background: #c8e6c9; 
+    color: #2e7d32; 
+}
+
+/* --- Responsive --- */
+@media(max-width:600px){ 
+    .card {
+        width: 95%; 
+        min-height: 450px;
+        padding: 30px;
+        border-radius: 30px;
+    }
+    .logo-container {
+        top: -60px; 
+    }
+    .logo {
+        max-width: 120px; 
+    }
+    .title { 
+        margin-top: 80px; 
+        font-size: 22px;
+    }
+}

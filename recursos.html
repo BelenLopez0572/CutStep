@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos y Documentos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. BASE Y FONDO (Consistente con toda la suite) --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            /* Fondo Degradado Único */
+            background: linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 100%); 
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            padding: 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
+        }
+
+        /* --- 2. ENCABEZADO (Consistente con el menú y ajustes) --- */
+        .header {
+            background-color: #004d40; /* Verde oscuro fuerte */
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: none; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header h1 {
+            color: #d4f8d4; /* Verde muy claro para contraste */
+            font-size: 2.5em;
+            margin: 0 10px;
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        /* Contenido Principal y Estructura de Documentos */
+        .content-area {
+            padding: 40px 10%;
+            text-align: left;
+        }
+        
+        /* Texto introductorio */
+        .intro-text {
+            text-align: center; 
+            font-style: italic; 
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .category-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #38761d; /* Verde primario de la marca */
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Subtítulo informativo */
+        .category-subtitle {
+            font-style: italic;
+            color: #777;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        /* --- 3. ESTILO PARA CADA RECURSO/DOCUMENTO --- */
+        .document-item {
+            display: flex;
+            align-items: center; 
+            margin-bottom: 12px;
+            padding: 15px;
+            background-color: #f7fff7; /* Fondo verde muy claro para la fila */
+            border: 1px solid #e0f2f1; /* Borde sutil */
+            border-radius: 8px;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .document-item:hover {
+            background-color: #e6fff0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .document-item a {
+            text-decoration: none;
+            color: #00796b; /* Verde azulado para los enlaces */
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-left: 15px;
+            flex-grow: 1;
+        }
+
+        .document-item a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Icono de documento (usando íconos más visuales y armonizados) */
+        .doc-icon {
+            font-size: 1.8em;
+            margin-right: 10px;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* Estilos específicos por tipo de archivo */
+        .pdf .doc-icon {
+            color: #e53935; /* Rojo claro para PDF */
+        }
+        .docx .doc-icon {
+            color: #2e7d32; /* Verde más oscuro para DOCX */
+        }
+        
+        /* Estilo para el enlace de regreso al menú */
+        .back-to-menu-link {
+            font-size: 1.1em; 
+            color: #004d40; 
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        .back-to-menu-link:hover {
+            background-color: #e0f2f1;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>RECURSOS</h1>
+        </div>
+        
+        <div class="content-area">
+            <p class="intro-text">
+                Aquí puedes descargar o visualizar los archivos necesarios para tus trámites y ver ejemplos de llenado.
+            </p>
+
+            <div class="category-title">Servicio Social</div>
+            <p class="category-subtitle intro-text" style="text-align: left;">
+                La plantilla para los reportes parciales te los da el mismo ssiiau, aquí encontrarás solo ejemplos de llenado.
+            </p>
+            
+            <div class="document-item pdf">
+                <span class="doc-icon">🔴</span>
+                <a href="documentos/Ejemplo de llenado_reporte_final.pdf" target="_blank">
+                    Ejemplo de llenado de Reporte Final <span style="font-size: 0.9em; color: #e53935;">(PDF)</span>
+                </a>
+            </div>
+
+            <div class="document-item pdf">
+                <span class="doc-icon">🔴</span>
+                <a href="documentos/Ejemplo de reporte final_servicio social.pdf" target="_blank">
+                    Ejemplo de Reporte Final de Servicio Social <span style="font-size: 0.9em; color: #e53935;">(PDF)</span>
+                </a>
+            </div>
+
+            <div class="document-item pdf">
+                <span class="doc-icon">🔴</span>
+                <a href="documentos/Ejemplo de reporte parcial.pdf" target="_blank">
+                    Ejemplo de Reporte Parcial <span style="font-size: 0.9em; color: #e53935;">(PDF)</span>
+                </a>
+            </div>
+
+            <div class="category-title">Prácticas Profesionales</div>
+
+            <div class="document-item pdf">
+                <span class="doc-icon">🔴</span>
+                <a href="documentos/Ejemplo_llenado_reporte_parcial_practicas.pdf" target="_blank">
+                    Ejemplo de llenado de Reporte Parcial de Prácticas <span style="font-size: 0.9em; color: #e53935;">(PDF)</span>
+                </a>
+            </div>
+
+            <div class="document-item docx">
+                <span class="doc-icon">🟢</span>
+                <a href="documentos/plantilla_reporte_parcial_practicas.docx" download>
+                    Plantilla de Reporte Parcial de Prácticas <span style="font-size: 0.9em; color: #2e7d32;">(DOCX)</span>
+                </a>
+            </div>
+
+             <div class="document-item docx">
+                <span class="doc-icon">🟢</span>
+                <a href="documentos/plantilla_reporte_final_practicas_profesionales.docx" download>
+                    Plantilla de Reporte Final de Prácticas Profesionales <span style="font-size: 0.9em; color: #2e7d32;">(DOCX)</span>
+                </a>
+            </div>
+            <div class="document-item pdf">
+                <span class="doc-icon">🔴</span>
+                <a href="documentos/ejemplo de llenado_reporte_final.pdf" target="_blank">
+                    Ejemplo de Reporte Final de Prácticas <span style="font-size: 0.9em; color: #e53935;">(PDF)</span>
+                </a>
+            </div>
+            
+        </div>
+        
+        <div style="text-align: center; padding-bottom: 30px; margin-top: 30px;">
+            <a href="menu.html" class="back-to-menu-link">
+                &lt; Regresar al Menú Principal
+            </a>
+        </div>
+    </div>
+</body>
+</html>

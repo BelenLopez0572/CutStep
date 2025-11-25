@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Horas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. BASE Y FONDO (Consistente con toda la suite) --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alineado arriba para mantener el encabezado */
+            /* Fondo Degradado Único: Verde claro a Azul/Blanco suave */
+            background: linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 100%); 
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            padding: 0;
+            /* Usamos el box-shadow suave para integración */
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); 
+            min-height: 100vh;
+        }
+
+        /* --- 2. ENCABEZADO (Consistente con el menú y plaza) --- */
+        .header {
+            background-color: #004d40; /* Verde oscuro fuerte */
+            padding: 20px 0;
+            text-align: center;
+            /* Eliminamos el border-bottom para una apariencia más limpia y moderna */
+            border-bottom: none; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header h1 {
+            color: #d4f8d4; /* Verde muy claro para contraste */
+            font-size: 2.5em;
+            margin: 0 10px;
+            font-weight: 700;
+            font-style: normal; /* Eliminamos cursiva por uniformidad */
+        }
+        
+        /* Contenido Principal */
+        .content-area {
+            padding: 40px 10%;
+            text-align: center;
+        }
+
+        .instructions {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: #555;
+            font-weight: 400;
+        }
+
+        .instructions a {
+            color: #00796b; /* Verde azulado */
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .instructions a:hover {
+            text-decoration: underline;
+        }
+        
+        .instructions-bold {
+            font-size: 1.3em; 
+            font-weight: 700;
+            color: #38761d; /* Usamos el verde primario para el título principal */
+        }
+
+
+        /* --- 3. ESTILO DEL RECUADRO DE HORAS (Estilo único pero armonizado) --- */
+        .hours-input-box {
+            position: relative;
+            margin: 30px auto;
+            padding: 30px 20px;
+            max-width: 350px;
+            /* Mantenemos el estilo de borde grueso de la imagen */
+            border: 4px solid #333; 
+            border-radius: 40px;
+            /* Mantenemos el estilo de sombra gruesa */
+            box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.5); 
+            background-color: #fff; /* Asegurar fondo blanco */
+            text-align: center;
+        }
+
+        .hours-input-box input[type="number"] {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4em;
+            font-weight: 800; /* Más grueso */
+            color: #004d40; /* Color oscuro consistente */
+            text-align: center;
+            width: 100%;
+            border: none;
+            outline: none;
+            margin-bottom: 10px;
+        }
+        
+        .divider {
+            height: 3px; /* Más grueso */
+            background-color: #333;
+            width: 80%;
+            margin: 0 auto 30px auto;
+            border-radius: 2px;
+        }
+
+        /* --- 4. BOTÓN REGISTRAR (Armonizado con los botones de Ingreso/Crear Cuenta) --- */
+        #register-btn {
+            /* Degradado Verde Primario (Consistente con la suite) */
+            background: linear-gradient(145deg, #6aa84f, #38761d); 
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px; /* Bordes menos redondeados que el original (25px), más limpios (10px) */
+            cursor: pointer;
+            /* Sombra suave y levantada */
+            box-shadow: 0 4px 10px rgba(56, 118, 29, 0.4); 
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #register-btn:hover {
+            transform: translateY(-3px); /* Levantar más al pasar el mouse */
+            box-shadow: 0 6px 15px rgba(56, 118, 29, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="icono_servicio_social.png" alt="Icono" style="height: 40px; width: 40px; display: none;"> 
+            <h1>Servicio Social</h1>
+        </div>
+        
+        <div class="content-area">
+            <p class="instructions instructions-bold">
+                INGRESA CUANTAS HORAS YA TIENES REGISTRADAS
+            </p>
+            <p class="instructions">
+                Si no lo recuerdas puedes revisarla en la página oficial de <a href="http://ssiiau" target="_blank">ssiiau</a>
+            </p>
+
+            <div class="hours-input-box">
+                <input type="number" id="registered-hours" placeholder="0" min="0" max="480">
+                <div class="divider"></div>
+                <button id="register-btn">Registrar</button>
+            </div>
+            
+            <p class="instructions" style="margin-top: 40px; font-style: italic; color: #666;">
+                Una vez que se registran las horas ya cursadas, la página principal mostrará un contador con las horas que te faltan para completar las 480 horas.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('register-btn').addEventListener('click', function() {
+            const hoursInput = document.getElementById('registered-hours');
+            const registeredHours = parseInt(hoursInput.value) || 0; 
+            
+            if (registeredHours < 0 || registeredHours > 480) {
+            alert('Por favor, ingresa un número de horas válido entre 0 y 480.');
+            return;}
+
+            // 1. Obtener los parámetros de la URL (inicio y reporte)
+            const urlParams = new URLSearchParams(window.location.search);
+            const startDate = urlParams.get('inicio'); 
+            const reportDate = urlParams.get('reporte');
+
+            if (!startDate || !reportDate) {
+                // Si faltan las fechas, el usuario vino directamente aquí. 
+                // En este caso, solo registramos las horas y volvemos al menú sin definir fechas.
+                window.location.href = `menu.html?horas=${registeredHours}`;
+                return;
+            }
+
+            // 2. Redirigir a menu.html con todas las variables necesarias
+            window.location.href = `menu.html?inicio=${startDate}&reporte=${reportDate}&horas=${registeredHours}`;
+        });
+
+        // Opcional: Cargar un valor predeterminado si el usuario regresa a esta página
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const prevHours = urlParams.get('horas');
+            if (prevHours) {
+                 document.getElementById('registered-hours').value = prevHours;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plaza - Registro de Fecha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. BASE Y FONDO (Consistente con Menu y Login) --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            /* Fondo Degradado Único: Verde claro a Azul/Blanco suave */
+            background: linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 100%); 
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            padding: 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
+        }
+
+        /* --- 2. ENCABEZADO Y TÍTULO --- */
+        .header {
+            background-color: #004d40; /* Verde oscuro fuerte para la banda superior */
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #d4f8d4; /* Verde muy claro para contraste */
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        /* Contenido Principal */
+        .content-area {
+            padding: 40px 10%;
+            text-align: center;
+        }
+
+        .instructions {
+            margin-bottom: 5px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .instructions a {
+            color: #00796b; /* Verde azulado de la identidad */
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .instructions a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- 3. ESTILOS DEL CALENDARIO --- */
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #c8e6c9; /* Verde muy claro y suave (Reemplaza el rosa) */
+            padding: 12px 25px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            color: #38761d;
+            font-weight: 700;
+            font-size: 1.1em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-nav button {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #38761d;
+            padding: 5px 10px;
+            transition: color 0.2s;
+        }
+        .calendar-nav button:hover:not(:disabled) {
+            color: #004d40;
+        }
+        .calendar-nav button:disabled {
+            color: #aaa;
+            cursor: not-allowed;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            max-width: 600px;
+            margin: 10px auto;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .day-label, .date-cell {
+            padding: 12px 5px;
+            text-align: center;
+            font-size: 1em;
+            border-radius: 6px;
+        }
+
+        .day-label {
+            font-weight: 600;
+            background-color: #f0f4f0; /* Fondo muy suave para días */
+            color: #004d40;
+        }
+
+        .date-cell {
+            cursor: pointer;
+            background-color: #fff;
+            border: 1px solid #eee;
+            color: #444;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            user-select: none;
+        }
+
+        .date-cell:hover:not(.empty):not(.selected) {
+            background-color: #e8f5e9;
+            box-shadow: 0 0 5px rgba(56, 118, 29, 0.2);
+        }
+
+        /* Estilo de la fecha seleccionada (usamos el verde principal) */
+        .date-cell.selected {
+            background-color: #38761d; /* Verde principal (Reemplaza el rojo) */
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(56, 118, 29, 0.4);
+            border-color: #38761d;
+        }
+        
+        .empty {
+            background-color: transparent;
+            border: none;
+            cursor: default;
+        }
+
+        /* --- 4. BOTONES PRINCIPALES --- */
+        .main-buttons {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.1s;
+            min-width: 150px;
+        }
+
+        .btn-accept {
+            background-color: #38761d; /* Verde principal */
+            color: white;
+        }
+        .btn-accept:hover { background-color: #6aa84f; transform: translateY(-1px); }
+        .btn-accept:disabled { background-color: #ccc; cursor: not-allowed; transform: none; }
+
+        .btn-cancel {
+            background-color: #00796b; /* Verde azulado (Reemplaza el rojo oscuro) */
+            color: white;
+        }
+        .btn-cancel:hover { background-color: #004d40; transform: translateY(-1px); }
+
+        /* --- 5. MODAL DE CONFIRMACIÓN (Armonizado) --- */
+        #confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .modal-content h3 {
+            color: #38761d;
+            margin-bottom: 15px;
+        }
+
+        .modal-buttons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .modal-buttons .btn-accept {
+            background-color: #38761d;
+        }
+        .modal-buttons .btn-cancel {
+            background-color: #cc0000; /* Se mantiene el rojo para el 'No/Cancelar' en el modal para claridad de acción negativa */
+        }
+
+        .modal-buttons .btn {
+            margin: 0 10px;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .content-area {
+                padding: 20px 5%;
+            }
+            .calendar-nav {
+                padding: 10px 15px;
+            }
+            .calendar-grid {
+                gap: 3px;
+            }
+            .day-label, .date-cell {
+                padding: 8px 3px;
+                font-size: 0.9em;
+            }
+            .main-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .btn {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Servicio Social</h1>
+        </div>
+        
+        <div class="content-area">
+            <p class="instructions">Ingresa la fecha de inicio de tu plaza </p>
+            <p class="instructions">Si no recuerdas la fecha puedes revisarla en la página oficial de <a href="http://ssiiau" target="_blank">ssiiau</a></p>
+
+            <div class="calendar-nav">
+                <button id="prev-month">&lt;</button>
+                <span id="current-month-year">JUNIO 2025</span>
+                <button id="next-month">&gt;</button>
+            </div>
+
+            <div class="calendar-grid" id="calendar-grid">
+                <div class="day-label">Dom</div>
+                <div class="day-label">Lun</div>
+                <div class="day-label">Mar</div>
+                <div class="day-label">Mié</div>
+                <div class="day-label">Jue</div>
+                <div class="day-label">Vie</div>
+                <div class="day-label">Sáb</div>
+                </div>
+
+            <div class="main-buttons">
+                <button class="btn btn-accept" id="accept-btn" disabled>Aceptar</button>
+                <button class="btn btn-cancel" onclick="window.location.href = 'ss.html';">Regresar a Requisitos</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmation-modal">
+        <div class="modal-content">
+            <h3>¡Fecha Registrada!</h3>
+            <p>
+                Se ha generado un recordatorio en tu google calendar, en la cuenta de correo que registraste
+                <br>
+                Se te notificará cuando se cumplan 3 meses desde la fecha de inicio para que realices tu primer reporte parcial.
+            </p>
+            <p style="font-weight: bold; margin-top: 20px;">¿Ya tienes horas registradas en el sistema?</p>
+            <div class="modal-buttons">
+                <button class="btn btn-accept" onclick="handleReminderOption(true)">Sí, ir a horas</button>
+                <button class="btn btn-cancel" onclick="handleReminderOption(false)">No, ir al Menú</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const calendarGrid = document.getElementById('calendar-grid');
+        const currentMonthYear = document.getElementById('current-month-year');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+        const acceptBtn = document.getElementById('accept-btn');
+        const modal = document.getElementById('confirmation-modal');
+
+        let currentDate = new Date();
+        // Inicializar en 2025 para que el calendario no empiece en el mes actual del usuario.
+        currentDate.setFullYear(2025, 5); // Junio 2025 
+
+        let selectedDate = null;
+        const MIN_YEAR = 2000;
+
+        // --- FUNCIONES DEL CALENDARIO ---
+
+        function renderCalendar() {
+            // Eliminar todas las celdas de fecha anteriores
+            let currentCells = calendarGrid.querySelectorAll('.date-cell');
+            currentCells.forEach(cell => cell.remove());
+
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0=Dom, 1=Lun...
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                                 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            currentMonthYear.textContent = `${monthNames[month].toUpperCase()} ${year}`;
+
+            // Crear celdas vacías para el desfase del primer día
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                createDateCell('', true);
+            }
+
+            // Crear celdas para cada día del mes
+            for (let day = 1; day <= daysInMonth; day++) {
+                createDateCell(day, false);
+            }
+        }
+
+        function createDateCell(day, isEmpty) {
+            const cell = document.createElement('div');
+            cell.classList.add('date-cell');
+            cell.textContent = day;
+            
+            if (isEmpty) {
+                cell.classList.add('empty');
+                cell.textContent = '';
+            } else {
+                cell.dataset.date = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}`;
+                
+                // Re-marcar la fecha seleccionada si se está renderizando de nuevo
+                if (selectedDate && cell.dataset.date === selectedDate) {
+                    cell.classList.add('selected');
+                }
+
+                cell.addEventListener('click', (e) => {
+                    handleDateSelection(e.target);
+                });
+            }
+            calendarGrid.appendChild(cell);
+        }
+
+        function handleDateSelection(cell) {
+            // Deseleccionar cualquier celda previamente seleccionada
+            const previouslySelected = document.querySelector('.date-cell.selected');
+            if (previouslySelected) {
+                previouslySelected.classList.remove('selected');
+            }
+
+            // Seleccionar la nueva celda
+            cell.classList.add('selected');
+            selectedDate = cell.dataset.date;
+            acceptBtn.disabled = false;
+        }
+
+        // --- MANEJO DE NAVEGACIÓN ---
+
+        function changeMonth(delta) {
+            const newDate = new Date(currentDate.getTime());
+            newDate.setMonth(currentDate.getMonth() + delta);
+            
+            // Límite de retroceso (hasta el 1 de Enero del año 2000)
+            if (newDate.getFullYear() < MIN_YEAR && delta < 0) {
+                 newDate.setFullYear(MIN_YEAR);
+                 newDate.setMonth(0); // Enero
+            }
+
+            currentDate = newDate;
+            renderCalendar();
+            updateNavigationButtons();
+        }
+
+        function updateNavigationButtons() {
+            // Deshabilitar botón de retroceso si estamos en el límite mínimo
+            const isMinYear = currentDate.getFullYear() <= MIN_YEAR && currentDate.getMonth() === 0;
+            prevMonthBtn.disabled = isMinYear;
+        }
+
+        prevMonthBtn.addEventListener('click', () => changeMonth(-1));
+        nextMonthBtn.addEventListener('click', () => changeMonth(1));
+
+        // --- LÓGICA DE ACEPTAR/MODAL ---
+
+        acceptBtn.addEventListener('click', () => {
+            if (selectedDate) {
+                modal.style.display = 'flex'; // Mostrar el modal de confirmación
+            }
+        });
+        
+        window.handleReminderOption = function(hasRegisteredHours) {
+            modal.style.display = 'none'; // Ocultar el modal
+            
+            // 1. Calcular la fecha del reporte trimestral
+            const [year, month, day] = selectedDate.split('-').map(Number);
+            let reportDate = new Date(year, month - 1, day); // month es 0-indexado
+            reportDate.setMonth(reportDate.getMonth() + 3);
+
+            const reportYear = reportDate.getFullYear();
+            const reportMonth = String(reportDate.getMonth() + 1).padStart(2, '0');
+            const reportDay = String(reportDate.getDate()).padStart(2, '0');
+            
+            const finalReportDate = `${reportYear}-${reportMonth}-${reportDay}`;
+
+            if (hasRegisteredHours) {
+                // Redirigir a horas.html
+                window.location.href = `horas.html?inicio=${selectedDate}&reporte=${finalReportDate}`;
+            } else {
+                // Redirigir a menu.html
+                window.location.href = `menu.html?reporte=${finalReportDate}`;
+            }
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCalendar();
+            updateNavigationButtons();
+        });
+    </script>
+</body>
+</html>

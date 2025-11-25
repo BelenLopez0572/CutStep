@@ -1,0 +1,13 @@
+[2025-11-24 23:26:41] ---- Nuevo intento de login ----
+[2025-11-24 23:26:41] REQUEST_METHOD: POST
+[2025-11-24 23:26:41] REQUEST_URI: /backend/login.php
+[2025-11-24 23:26:41] REMOTE_ADDR: ::1
+[2025-11-24 23:26:41] POST: Array
+(
+    [username] => cualquiercorreo@gmail.com
+    [password] => 12345
+)
+
+[2025-11-24 23:26:41] email='cualquiercorreo@gmail.com', password_len=5
+[2025-11-24 23:26:41] dominio = 'gmail.com'
+[2025-11-24 23:26:41] Inicio de sesion exitoso!
