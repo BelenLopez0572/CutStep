@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 // backend/logout.php
 
 // Iniciar sesión
@@ -23,3 +24,11 @@ session_destroy();
 header("Location: ../index.php");
 exit();
 ?>
+=======
+// back/logout.php
+session_start();
+$_SESSION = [];
+session_destroy();
+header('Location: ../front/index.html');
+exit;
+>>>>>>> 87436fbef9cf013795a14a149f771ab25f61f80a

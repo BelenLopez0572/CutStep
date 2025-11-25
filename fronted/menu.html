@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Menú Principal - CUT</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #b4f5b4;
+      padding: 15px;
+      font-size: 2rem;
+      font-style: italic;
+      font-weight: bold;
+      color: #444;
+    }
+
+    p {
+      margin: 20px auto;
+      width: 80%;
+      color: #333;
+      font-size: 1.1rem;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .btn-card {
+      background-color: #b4f5b4;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 5px 5px 0px #000;
+      width: 180px;
+      text-align: center;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+    }
+
+    .btn-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .btn-card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    .btn-card span {
+      display: block;
+      font-weight: bold;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span>Sobre _____:</span>
+  </header>
+
+  <p>
+    Aquí encontrarás toda la información que necesitas para lograr completar tu servicio social, 
+    prácticas profesionales y tu proceso de titulación.
+  </p>
+
+  <div class="buttons">
+    <div class="btn-card">
+      <img src="imagenes/servicio.png" alt="Servicio Social">
+      <span>Servicio</span>
+    </div>
+
+    <div class="btn-card">
+      <img src="imagenes/practicas.png" alt="Prácticas profecionales">
+      <span>Prácticas</span>
+    </div>
+
+    <div class="btn-card">
+      <img src="imagenes/titulacion.png" alt="Titulación">
+      <span>Titulación</span>
+    </div>
+    <div class="btn-card">
+      <img src="imagenes/recursos.png" alt="Recursos">
+      <span>Recursos</span>
+    </div>
+  </div>
+</body>
+</html>
